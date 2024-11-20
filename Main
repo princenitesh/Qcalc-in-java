@@ -1,0 +1,91 @@
+
+import java.util.*;
+abstract class absclass{
+    public abstract double calculate(double num1 , double num2);
+}
+
+class Add extends absclass{
+    public double calculate(double num1 ,double num2){
+        return num1 + num2;
+    }
+}
+
+class Substract extends absclass{
+    public double calculate(double num1, double num2){
+        return num1 - num2;
+    }
+}
+
+class Multiply extends absclass{
+    public double calculate(double num1, double num2){
+        return num1 * num2;
+    }
+}
+
+class Divide extends absclass{
+    public double calculate(double num1, double num2){
+        
+        if(num2==0){
+            System.out.println("Invalid choice please select 1 to 4");
+            System.exit(0);
+            throw new ArithmeticException("Cannot divide by zero");
+        }
+        return num1 / num2;
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Choose your operation : ");
+        System.out.println("1. Add");
+        System.out.println("2. Substract");
+        System.out.println("3. Multiply");
+        System.out.println("4. Divide: ");
+        
+        int choice = scanner.nextInt();
+        
+        if(choice < 1 || choice > 4){
+            System.out.println("Invalid choice please select 1 to 4");
+            System.exit(0);
+        }
+        
+         // Input two numbers
+         System.out.println("Enter First Number : ");
+         double num1 = scanner.nextDouble();
+         
+         System.out.println("Enter Second Number : ");
+         double num2 = scanner.nextDouble();
+         
+         absclass operation = null;
+         
+         switch(choice){
+             case 1:
+                 operation = new Add();
+                 break;
+             case 2:
+                 operation = new Substract();
+                 break;
+             case 3:
+                 operation = new Multiply();
+                 break;
+             case 4:
+                 operation = new Divide();
+                 break;
+            default:
+            System.exit(0);
+
+         }
+          // Perform the calculation
+        try {
+            double result = operation.calculate(num1, num2);
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        
+        scanner.close();
+        
+    }
+}
